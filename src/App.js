@@ -7,21 +7,24 @@ import LayoutContainer from "./containers/LayoutContainer";
 import Dashboard from "./Dashboard";
 import Recipies from "./Recipies";
 import AuthService from "./services/AuthService";
+import { Notification } from "@mantine/core";
 
 function Home() {
 	const navigate = useNavigate();
-
 	const largeScreen = useMediaQuery("(min-width: 1000px)");
 	const [passwordVisible, setPasswordVisible] = useState(false);
 	const [username, setUsername] = useState("");
+	const [error, setError] = useState(false);
 	const [password, setPassword] = useState("");
 	const loginHandler = async () => {
 		if (username.length > 0 && password.length > 0) {
+			setError(false);
 			let userData = await AuthService.login({
 				email: username,
 				password: password,
 			}).catch((err) => {
 				console.log("SOME ERROR", err);
+				setError(true);
 			});
 			if (userData.data && userData.data.token) {
 				localStorage.setItem("userInfo", JSON.stringify(userData.data));
@@ -45,6 +48,12 @@ function Home() {
 						<Title ta={"center"} size={largeScreen ? 46 : 32} weight={900}>
 							Welcome To Veggies & Beyond
 						</Title>
+						{error && (
+							<Notification disallowClose={true} color={"red"} title="Error">
+								Something Went Wrong. Please Contact Support.
+							</Notification>
+						)}
+
 						<Text
 							sx={{ cursor: "pointer" }}
 							variant="gradient"
