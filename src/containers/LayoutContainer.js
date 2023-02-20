@@ -1,7 +1,18 @@
+import {
+	AppShell,
+	Burger,
+	Header,
+	MediaQuery,
+	Navbar,
+	NavLink,
+	Stack,
+	Title,
+	Avatar,
+	useMantineTheme,
+} from "@mantine/core";
+import { IconChevronRight, IconDashboard, IconLogout, IconNotes } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { Outlet, useNavigate, useMatch } from "react-router-dom";
-import { IconDashboard, IconChevronRight, IconNotes, IconLogout } from "@tabler/icons-react";
-import { AppShell, Navbar, Header, Title, NavLink, Stack, MediaQuery, Burger, useMantineTheme } from "@mantine/core";
+import { Outlet, useMatch, useNavigate } from "react-router-dom";
 
 function AppShellDemo(props) {
 	const theme = useMantineTheme();
@@ -97,10 +108,17 @@ function LayoutContainer() {
 								Veggies & Beyond
 							</Title>
 						</MediaQuery>
+						<MediaQuery smallerThan="md" styles={{ display: "none" }}>
+							{loggedIn && <Avatar sx={{ marginLeft: "auto" }} />}
+						</MediaQuery>
+
 						<MediaQuery largerThan="md" styles={{ display: "none" }}>
 							<Title order={4} underline color="green.8">
 								Veggies & Beyond
 							</Title>
+						</MediaQuery>
+						<MediaQuery largerThan="md" styles={{ display: "none" }}>
+							{loggedIn && <Avatar sx={{ marginLeft: "auto" }} />}
 						</MediaQuery>
 					</div>
 				</Header>

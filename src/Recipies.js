@@ -1,4 +1,4 @@
-import { Text, Flex, Card, Container } from "@mantine/core";
+import { Card, Text } from "@mantine/core";
 
 function Recipies() {
 	return (
